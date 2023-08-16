@@ -1,8 +1,8 @@
- <!DOCTYPE html>
- <html>
-    <body>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">    
         <h1>{{object.title}}</h1>
         <p>{{object.content}}</p>
-        <p>{{object.author}}</p>
-    </body>
- </html>
+        <p>{{object.author | title}}, {{object.date_created | date}}</p>
+    </div>
+{% endblock content %}
