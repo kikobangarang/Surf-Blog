@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">    
+    <div class="container card shadow bg-light">    
         <h1>{{object.title}}</h1>
         <p>{{object.content}}</p>
         <p>{{object.author | title}}, {{object.date_created | date}}</p>
