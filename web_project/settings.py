@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "firstapp"
+    "firstapp",
+    "forecast"
 ]
 
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
