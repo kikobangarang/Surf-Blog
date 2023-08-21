@@ -9,15 +9,16 @@ soup = BeautifulSoup(c, "html.parser")
 ###
 # things to scrape:
 # wave height DONE
-# wave graph DONE
+# colors DONE
 # wind direction and km/h DONE
 # temp DONE
 ###
 
 wave_height = []
-wind = {}
+wind_vel = []
+wind_dir = []
 temp = []
-graph_wave = []
+colors = []
 
 
 all = soup.find_all("td", {"class":"forecast-table__cell forecast-table-wave-height__cell"})
@@ -26,13 +27,15 @@ for i in all:
 
 all = soup.find_all("td", {"class":"forecast-table__cell forecast-table-wind__cell"})
 for i in all:
-    wind[i.find("text", {"class":"wind-icon__val"}).text] = i.find("div", {"class":"wind-icon__letters"}).text
+    wind_vel.append(i.find("text", {"class":"wind-icon__val"}).text)
+    wind_dir.append(i.find("div", {"class":"wind-icon__letters"}).text)
 
 all = soup.find_all("tr", {"class":"forecast-table__row"})
-tds = all[19].find_all("td")
+tds = all[19].find_all("td", limit=24)
 for i in tds:
     temp.append(i.find("span").text)
 
-all = soup.find_all("svg", {"class":"forecast-table-wave-graph__wave"})
-for i in all:
-    graph_wave.append(i)
+for td in soup.find_all("svg", {"class":"swell-icon__svg"}, limit=24):
+    if "fill" in td.attrs:
+        colors.append(td["fill"])
+

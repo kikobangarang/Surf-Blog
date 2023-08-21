@@ -19,9 +19,10 @@ def index(request):
     ###
 
     waveheight = []
-    wind = {}
+    wind_vel = []
+    wind_dir = []
     temp = []
-    graphwave = []
+    colors = []
 
 
     all = soup.find_all("td", {"class":"forecast-table__cell forecast-table-wave-height__cell"})
@@ -30,24 +31,29 @@ def index(request):
 
     all = soup.find_all("td", {"class":"forecast-table__cell forecast-table-wind__cell"})
     for i in all:
-        wind[i.find("text", {"class":"wind-icon__val"}).text] = i.find("div", {"class":"wind-icon__letters"}).text
+        wind_vel.append(i.find("text", {"class":"wind-icon__val"}).text)
+        wind_dir.append(i.find("div", {"class":"wind-icon__letters"}).text)
 
     all = soup.find_all("tr", {"class":"forecast-table__row"})
-    tds = all[19].find_all("td")
+    tds = all[19].find_all("td", limit=24)
     for i in tds:
         temp.append(i.find("span").text)
+    
+    for td in soup.find_all("svg", {"class":"swell-icon__svg"}, limit=24):
+        if "fill" in td.attrs:
+            colors.append(td["fill"])
 
-    all = soup.find_all("svg", {"class":"forecast-table-wave-graph__wave"})
-    for i in all:
-        graphwave.append(i)
 
     weather = {
+
         "temp": temp,
-        "wind": wind,
-        "wave height": waveheight,
-        "graph wave": graphwave
+        "wind_vel": wind_vel,
+        "wind_dir": wind_dir,
+        "wave_height": waveheight,
+        "colors": colors
     }
 
-    context = {"weather" : weather}
+    context = {"weather" : weather, 'zipado':zip(temp, wind_vel, wind_dir, waveheight, colors)}
     return render(request, "forecast.html", context)
+
 
