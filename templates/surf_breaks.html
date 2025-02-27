@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-4">🌊 Surf Breaks in Portugal</h2>
+    <div class="mt-5 p-4" style="background-color: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+        <div class="row">
+            {% for category, breaks in surf_breaks.items %}
+                <div class="col-12 text-center">
+                    <h3 class="mt-4">{{ category }}</h3>
+                </div>
+                {% for break in breaks %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                        <a href="{{ break.url }}" class="btn btn-outline-primary w-100">
+                            {{ break.name }}
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

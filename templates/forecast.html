@@ -1,20 +1,15 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <div class="container">
-    <div class="row">
-        {% for i,j,k,l,m in zipado %}
-            <div class="col-sm-4 ">
-            <div class="card w-75 text-center m-5 shadow">
-                <div class="card-body">
-                    <h1>{{i}}</h1>
-                    <h1 class="card-text">{{l}}</h1>
-                    <h1 class="card-text">{{j}}</h1>
-                    <h1 class="card-text">{{k}}</h1>
-                    <h1 class="card-text">{{m}}</h1>
-                </div>
-                </div>
-            </div>
-        {% endfor %}
+<div class="container">
+    <h2 class="text-center mt-4">🌊 Surf Forecast for {{ break_name }}</h2>
+    <p class="text-center text-muted">Last updated: {{ last_updated }}</p>
+    <a href="{% url 'forecast:surf_breaks' %}" class="btn btn-primary mb-4">Back to Surf Breaks</a>
+
+    <div style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+        <div class="table-responsive">
+            {{ forecast_table | safe }}
         </div>
     </div>
+</div>
 {% endblock content %}

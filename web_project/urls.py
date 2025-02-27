@@ -20,5 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("firstapp.urls")),
-    path("", include("forecast.urls"))
+    path('breaks/', include('forecast.urls', namespace='breaks'))
 ]
